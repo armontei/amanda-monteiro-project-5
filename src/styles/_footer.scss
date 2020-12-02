@@ -1,0 +1,19 @@
+footer {
+    background-color: $secondary;
+    color: $fourth;
+    padding: 20px 0;
+    text-align: center;
+}
+
+a:visited {
+    color: inherit;
+}
+
+a:hover {
+    color: $fifth;
+}
+
+a:focus {
+    outline: 2px dashed $primary;
+}
+

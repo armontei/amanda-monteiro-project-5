@@ -1,0 +1,46 @@
+ul {
+    padding: 10px;
+}
+
+li {
+    display: flex;
+}
+
+li p {
+    padding-right: 5px;
+}
+
+button {
+    border-style: none;
+    color: $fourth;
+    padding: 5px;
+    cursor: pointer;
+}
+
+button:focus {
+    outline: 2px dashed $primary;
+}
+
+.noBtn {
+    background-color: $third;
+    width: 3rem;
+}
+
+.yesBtn {
+    background-color: $secondary;
+    width: 3rem;
+}
+
+.removeBtn {
+    background-color: $fifth;
+    
+}
+
+.addBtn {
+    background-color: $secondary;
+}
+
+.yes {
+    color: grey;
+    text-decoration: line-through;
+}

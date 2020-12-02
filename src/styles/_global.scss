@@ -1,0 +1,23 @@
+*{padding: 0; margin: 0;}html{font-size: 62.5%;}.wrapper{max-width: 1280px; width: 95%; margin: 0 auto;}ul{list-style: none;}a{text-decoration: none; color: inherited}img {width: 100%; height: auto; display: block;}
+
+// color pallette
+$primary: rgb(29, 53, 87);
+$secondary: rgb(69, 123, 157);
+$third: rgb(168, 218, 220);
+$fourth: rgb(241, 250, 238);
+$fifth: rgb(230, 57, 70);
+
+// fonts
+$title: 'Kaushan Script', cursive;
+$main:'Poppins', sans-serif;
+
+html {
+    background-color: $fourth;
+    background-image: url(../../src/assets/flowers.png);
+}
+
+body {
+    color: $primary;
+    font-size: 1.8rem;
+    font-style: $main;
+}
