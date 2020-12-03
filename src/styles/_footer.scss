@@ -1,8 +1,9 @@
 footer {
-    background-color: $secondary;
+    background-color: rgba(29, 53, 87, 0.8);
     color: $fourth;
     padding: 20px 0;
     text-align: center;
+    margin-top: 55px;
 }
 
 a:visited {
@@ -10,10 +11,7 @@ a:visited {
 }
 
 a:hover {
-    color: $fifth;
-}
-
-a:focus {
-    outline: 2px dashed $primary;
+    font-weight: 600;
+    letter-spacing: 1.5px;
 }
 

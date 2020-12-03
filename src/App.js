@@ -1,7 +1,15 @@
 import './App.scss';
 import { Component } from 'react';
 import firebase from './firebase';
-// import Rooms from './components/Rooms';
+
+// font awesome library
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faCheckSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSquare as farSquare } from "@fortawesome/free-regular-svg-icons";
+
+library.add(faCheckSquare, farSquare, faTrashAlt);
+
 
 class App extends Component {
 
@@ -10,7 +18,7 @@ class App extends Component {
     super(props);
     this.state = {
       rooms: [],
-      userInput: '',
+      userInput: ''
     }
   }
 
@@ -25,7 +33,6 @@ class App extends Component {
 
       const objArray = Object.keys(firebaseDataObj).map((key) => [(key), firebaseDataObj[key]]);
 
-
       this.setState({
         rooms: objArray
       })
@@ -38,7 +45,7 @@ class App extends Component {
   handleInput = (e) => {
 
     this.setState({
-      userInput: e.target.value
+      userInput: e.target.value,
     })
   }
 
@@ -51,24 +58,44 @@ class App extends Component {
 
     let roomId = `/${room[0]}/`
 
-    // object structure which new task will be added
-    const newTask = {
-      task: this.state.userInput,
-      complete: "no"
+    if (this.state.userInput === "") {
+      alert("Please enter a task!")
+    } else {
+      // object structure which new task will be added
+      const newTask = {
+        task: this.state.userInput,
+        complete: "no"
+      }
+
+      // adding a new task in the form of a child element to the specified room
+      dbRef.child(roomId).push(newTask);
     }
 
-    // adding a new task in the form of a child element to the specified room
-    dbRef.child(roomId).push(newTask);
+    // resetting user input
+    this.setState({
+      userInput: ''
+    })
+
+    document.getElementById(room[0]).value = '';
+
   }
 
   // complete task
-  completeTask = (taskKey, room) => {
+  completeTask = (taskKey, room, status) => {
     const dbRef = firebase.database().ref();
     let roomId = `/${room[0]}/`
 
-    dbRef.child(roomId + taskKey).update({
-      complete: "yes"
-    })
+
+    if (status === "no") {
+      dbRef.child(roomId + taskKey).update({
+        complete: "yes"
+      })
+    } else {
+      dbRef.child(roomId + taskKey).update({
+        complete: "no"
+      })
+
+    }
   }
 
   // removing tasks
@@ -93,7 +120,7 @@ class App extends Component {
         </header>
 
         {/* MAIN SECTION */}
-        <main className="wrapper">
+        <main className="wrapper content">
 
           {/* mapping through initial array with rooms and task objects inside each room */}
           {this.state.rooms.map((room, i) => {
@@ -103,7 +130,7 @@ class App extends Component {
 
               return (
                 
-                <ul>
+                <div className="taskContainer">
                   {/* displaying names of all the rooms */}
                   <h3 key={i}>{room[0]}</h3>
 
@@ -115,32 +142,40 @@ class App extends Component {
 
                     // mapping through task objects so it can be turned into an array to extract information
                     for (let taskId in task) {
-
                       // getting the task ID, task name, and completed status inside an array
                       newArray.push([taskId, task[taskId].task, task[taskId].complete]);
-
                     }
 
                     return (
-                      <div>
+                      <ul>
 
                         {/* mapping through the new array with created with all the task values */}
                         { newArray.map( realTasks => {
                           
+                          // console.log(newArray);
                           return (
-
                             // displaying the tasks to the page along with a button to remove the task
-                            <li key={realTasks[0]}>
-                              <button onClick={() => { this.completeTask(realTasks[0], room) }} className={realTasks[2] + "Btn"}></button>
-                              <p className={realTasks[2]}>{realTasks[1]}</p>
-                              <button onClick={() => { this.removeTask(realTasks[0], room) }} className="removeBtn">remove</button>
+                            <li key={realTasks[0]} className={realTasks[0]}>
+
+                              <div tabindex="0" aria-label="Mark task as complete" onClick={() => { this.completeTask(realTasks[0], room, realTasks[2]) }} className="taskUpdate">
+                                <button tabindex="-1" className={realTasks[2] + "Btn"}>
+                                  {/* font awesome icon that will change between check and unchecked when clicked */}
+                                  <FontAwesomeIcon icon={(realTasks[2] === "yes") ? "check-square" :  ['far', 'square']} />
+                                </button>
+                                <p className={realTasks[2]}>{realTasks[1]}</p>
+                              </div>
+
+                              <button aria-label="Remove this task" onClick={() => { this.removeTask(realTasks[0], room) }} className="removeBtn">
+                                <FontAwesomeIcon icon={faTrashAlt} />
+                              </button>
+
                             </li>
                             
                           )
 
                         })}
 
-                      </div>
+                      </ul>
                     )
 
                   })
@@ -149,11 +184,11 @@ class App extends Component {
                   {/* ADD TASK FORM SECTION */}
                   <form key={room[0]}>
                     <label htmlFor="newTask" className="srOnly">Add new task</label>
-                    <input type="text" id="newTask" onChange={this.handleInput} />
+                    <input type="text" id="newTask" onChange={this.handleInput} id={room[0]} placeholder="e.g. sweep floors" />
                     <button onClick={ (e) => {this.handleAdd(e, room)} } className="addBtn">Add Task</button>
                   </form>
-
-                </ul>
+                
+                </div>
               )            
           })
           }

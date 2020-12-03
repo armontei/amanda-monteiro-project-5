@@ -1,46 +1,127 @@
-ul {
-    padding: 10px;
+// this is for a list item in firebase to prevent it from display/deleted since the room would also be deleted if there are no child elements
+.hidden {
+    display: none;
 }
 
-li {
+
+// room and task card styles
+.content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+h3 {
+    font-family: $title;
+    font-size: 3.1rem;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.taskContainer {
+    padding: 25px 40px;
+    background-color: $fourth;
+    border: 3px solid rgba(29, 53, 87, 0.8);;
+    border-radius: 10px;
+    box-shadow: 3px 1px rgba(0,0,0,0.2);
+}
+
+li,
+.taskUpdate {
     display: flex;
+    align-items: center;
 }
 
 li p {
-    padding-right: 5px;
+    padding: 0 10px;
 }
 
+// button styles
 button {
     border-style: none;
-    color: $fourth;
+    color: white;
     padding: 5px;
     cursor: pointer;
 }
 
-button:focus {
+button:focus,
+.taskUpdate:focus,
+input:focus,
+a:focus {
     outline: 2px dashed $primary;
 }
 
-.noBtn {
-    background-color: $third;
+// buttons that update whether task is complete
+.taskUpdate {
+    cursor: pointer;
+    margin: 5px 0;
+}
+
+.taskUpdate:hover,
+.removeBtn:hover {
+    transform: scale(1.1);
+}
+
+.noBtn,
+.yesBtn {
     width: 3rem;
+    border-radius: 5px;
+}
+
+.noBtn:focus,
+.yesBtn:focus {
+    outline: none;
+}
+
+.noBtn {
+    background-color: $secondary;
 }
 
 .yesBtn {
-    background-color: $secondary;
-    width: 3rem;
+    background-color: $third;
 }
 
+// button to remove tasks
 .removeBtn {
+    background-color: rgba(230, 57, 70, 0.6);
+    color: $fourth;
+    border-radius: 5px;
+    height: 3rem;
+}
+
+.removeBtn:hover {
     background-color: $fifth;
-    
 }
 
+// button to add tasks
 .addBtn {
-    background-color: $secondary;
+    background-color: transparent;
+    border-bottom: 3px solid rgba(29, 53, 87, 0.9);
+    border-right: 5px solid rgba(29, 53, 87, 0.9);
+    border-radius: 5px 5px 5px 0;
+    color: $primary;
 }
 
-.yes {
-    color: grey;
-    text-decoration: line-through;
+.addBtn:hover {
+    background-color: $primary;
+    color: $fourth;
 }
+
+// completed tasks button
+.yes {
+    color: rgba(29, 53, 87, 0.3);
+    text-decoration: line-through;
+    background-color: transparent;
+}
+
+// form styles
+input {
+    caret-color: $fifth;
+    padding: 5px;
+    border-style: none;
+    background-color: transparent;
+    border-bottom: 1px solid $primary;
+}
+
+
