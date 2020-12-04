@@ -104,8 +104,6 @@ class App extends Component {
     const dbRef = firebase.database().ref();
     let roomId = `/${room}/`
 
-    console.log(roomId);
-
     if (status === "no") {
       dbRef.child(roomId + taskKey).update({
         complete: "yes"
