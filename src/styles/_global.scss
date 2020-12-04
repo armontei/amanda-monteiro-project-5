@@ -10,14 +10,3 @@ $fifth: rgb(230, 57, 70);
 // fonts
 $title: 'Kaushan Script', cursive;
 $main:'Poppins', sans-serif;
-
-html {
-    background-color: $fourth;
-    background-image: url(../../src/assets/flowers.png);
-}
-
-body {
-    color: $primary;
-    font-size: 1.8rem;
-    font-style: $main;
-}

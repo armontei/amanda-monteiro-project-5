@@ -1,21 +1,18 @@
 import './App.scss';
-import { Component } from 'react';
+import { Component, Fragment } from 'react';
 import firebase from './firebase';
-
-// font awesome library
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCheckSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { faSquare as farSquare } from "@fortawesome/free-regular-svg-icons";
-
-library.add(faCheckSquare, farSquare, faTrashAlt);
-
+import Header from './components/Header.js'
+import Rooms from './components/Rooms.js'
+import Task from './components/Tasks.js'
+import Form from './components/Form.js'
+import Suggestion from './components/Suggestion'
+import Footer from './components/Footer';
 
 class App extends Component {
 
   // getting all the rooms
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       rooms: [],
       userInput: ''
@@ -31,10 +28,32 @@ class App extends Component {
 
       const firebaseDataObj = data.val();
 
-      const objArray = Object.keys(firebaseDataObj).map((key) => [(key), firebaseDataObj[key]]);
+      const generateTaskList = (obj) => {
+        
+        return Object.keys(obj).map(key => {
+            return {
+            id: key,
+            taskName: obj[key].task,
+            isComplete: obj[key].complete
+            }
 
+        })
+      }
+
+      const newArray = []
+
+      for (const room in firebaseDataObj) {
+
+        const newObj = {
+          name: room,
+          tasks: generateTaskList(firebaseDataObj[room])
+        }
+
+        newArray.push(newObj);
+      }
+      
       this.setState({
-        rooms: objArray
+        rooms: newArray
       })
 
     })
@@ -56,7 +75,7 @@ class App extends Component {
     
     const dbRef = firebase.database().ref();
 
-    let roomId = `/${room[0]}/`
+    let roomId = `/${room}/`
 
     if (this.state.userInput === "") {
       alert("Please enter a task!")
@@ -71,20 +90,21 @@ class App extends Component {
       dbRef.child(roomId).push(newTask);
     }
 
-    // resetting user input
+    // resetting user input and clearing form
     this.setState({
       userInput: ''
     })
 
-    document.getElementById(room[0]).value = '';
+    document.getElementById(room).value = '';
 
   }
 
-  // complete task
+  // complete task function
   completeTask = (taskKey, room, status) => {
     const dbRef = firebase.database().ref();
-    let roomId = `/${room[0]}/`
+    let roomId = `/${room}/`
 
+    console.log(roomId);
 
     if (status === "no") {
       dbRef.child(roomId + taskKey).update({
@@ -98,108 +118,91 @@ class App extends Component {
     }
   }
 
-  // removing tasks
+  // removing tasks functions
   removeTask = (taskKey, room) => {
-    const dbRef = firebase.database().ref();
-    let roomId = `/${room[0]}/`
 
+    const dbRef = firebase.database().ref();
+    let roomId = `/${room}/`
+  
     dbRef.child(roomId + taskKey).remove()
   }
+
+
+  // suggest a new random task function
+  newSuggestion = (room) => {
+    
+    const bathroomTasks = ["clean shower", "wash towels", "clean sink", "wash shower curtain", "clean toilet", "clean mirror", "sweep floor", "mop floor"];
+    const bedroomTasks = ["wash blankets", "change bed sheets", "tidy closet", "dust surfaces", "organize drawers", "clean windows", "vacuum carpet"];
+    const kitchenTasks = ["wash dishes", "sweep floor", "mop floor", "wipe counter", "clean sink", "clean microwave", "clean stove", "take out garbage"];
+    const livingRoomTasks = ["dust surfaces", "vacuum carpet", "sweep floor", "mop floor", "organize shelves", "tidy coffee table", "clean windows"];
+
+    if ( room === "Bathroom") {
+      document.getElementById(room).value = bathroomTasks[Math.floor(Math.random() * bathroomTasks.length)];
+
+      this.setState({
+        userInput: document.getElementById(room).value
+      })
+    } else if (room === "Bedroom") {
+      document.getElementById(room).value = bedroomTasks[Math.floor(Math.random() * bedroomTasks.length)];
+
+      this.setState({
+        userInput: document.getElementById(room).value
+      })
+    } else if (room === "Kitchen") {
+      document.getElementById(room).value = kitchenTasks[Math.floor(Math.random() * kitchenTasks.length)];
+
+      this.setState({
+        userInput: document.getElementById(room).value
+      })
+    } else if (room === "Living Room") {
+      document.getElementById(room).value = livingRoomTasks[Math.floor(Math.random() * livingRoomTasks.length)];
+
+      this.setState({
+        userInput: document.getElementById(room).value
+      })
+    }
+
+  }
+
 
   render() {
 
     return (
-      <div>
 
-        {/* HEADER SECTION */}
-        <header>
-          <div className="headerOverlay">
-            <h1 className="wrapper">I Dream of Cleannie</h1>
-            <h2 className="wrapper">Keep track of everything in your home you need to clean</h2>
-          </div>
-        </header>
+    <Fragment>
+      {/* HEADER SECTION */}
+      <Header headerText="I Dream of Cleannie" subheaderText="Keep track of everything in your home you need to clean"/>
 
-        {/* MAIN SECTION */}
-        <main className="wrapper content">
+      {/* MAIN SECTION */}
+      <main className="wrapper content">
+      
+          {this.state.rooms.map((room) => {
+            return (
+              <Rooms roomName={room.name}>
 
-          {/* mapping through initial array with rooms and task objects inside each room */}
-          {this.state.rooms.map((room, i) => {
+                {room.tasks.map(task => {
 
-            // creating another array with tasks to map through
-            let tasks = [room[1]];
+                  return <Task taskName={task.taskName} removeTaskHandler={this.removeTask} labelTaskHandler={this.completeTask} taskId={task.id} isChecked={task.isComplete} room={room.name} />
 
-              return (
-                
-                <div className="taskContainer">
-                  {/* displaying names of all the rooms */}
-                  <h3 key={i}>{room[0]}</h3>
+                })}
 
-                  {/* mapping through the tasks associated with the room */}
-                  {tasks.map(task => {
+                {/* ADD TASK SECTION */}
+                <Form inputChangeHandler={this.handleInput} room={room.name} newTaskHandler={this.handleAdd} />
 
-                    // creating a new array outside for loop because if the return is inside the for loop only the first item will be returned and not the rest of the items
-                    let newArray = [];
+                <Suggestion room={room.name} suggestionHandler={this.newSuggestion} />
 
-                    // mapping through task objects so it can be turned into an array to extract information
-                    for (let taskId in task) {
-                      // getting the task ID, task name, and completed status inside an array
-                      newArray.push([taskId, task[taskId].task, task[taskId].complete]);
-                    }
+              </Rooms> 
+              
+            )
+            
+          })}
+          
+      </main>
 
-                    return (
-                      <ul>
+      {/* FOOTER SECTION */}
+      <Footer />
 
-                        {/* mapping through the new array with created with all the task values */}
-                        { newArray.map( realTasks => {
-                          
-                          // console.log(newArray);
-                          return (
-                            // displaying the tasks to the page along with a button to remove the task
-                            <li key={realTasks[0]} className={realTasks[0]}>
-
-                              <div tabindex="0" aria-label="Mark task as complete" onClick={() => { this.completeTask(realTasks[0], room, realTasks[2]) }} className="taskUpdate">
-                                <button tabindex="-1" className={realTasks[2] + "Btn"}>
-                                  {/* font awesome icon that will change between check and unchecked when clicked */}
-                                  <FontAwesomeIcon icon={(realTasks[2] === "yes") ? "check-square" :  ['far', 'square']} />
-                                </button>
-                                <p className={realTasks[2]}>{realTasks[1]}</p>
-                              </div>
-
-                              <button aria-label="Remove this task" onClick={() => { this.removeTask(realTasks[0], room) }} className="removeBtn">
-                                <FontAwesomeIcon icon={faTrashAlt} />
-                              </button>
-
-                            </li>
-                            
-                          )
-
-                        })}
-
-                      </ul>
-                    )
-
-                  })
-                  }
-
-                  {/* ADD TASK FORM SECTION */}
-                  <form key={room[0]}>
-                    <label htmlFor="newTask" className="srOnly">Add new task</label>
-                    <input type="text" id="newTask" onChange={this.handleInput} id={room[0]} placeholder="e.g. sweep floors" />
-                    <button onClick={ (e) => {this.handleAdd(e, room)} } className="addBtn">Add Task</button>
-                  </form>
-                
-                </div>
-              )            
-          })
-          }
-
-        </main>
-
-        {/* FOOTER SECTION */}
-        <footer>
-          <p className="wrapper">Created by <a href="https://github.com/armontei">Amanda Monteiro</a> at <a href="https://junocollege.com/">Juno College</a></p>
-        </footer>
-      </div>
+    </Fragment>
     )
   }
 }

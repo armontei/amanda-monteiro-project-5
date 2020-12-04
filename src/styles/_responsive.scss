@@ -1,0 +1,43 @@
+/* Portrait tablet and small desktops */
+@media (max-width: 940px) {
+
+    .taskContainer {
+        padding: 20px 50px;
+    }
+
+    .addBtn {
+        width: 40%;
+    }
+
+    input[type=text] {
+        width: 60%;
+    }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+
+    .content {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 25px;
+    }
+    
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+
+    h1 {
+        font-size: 6rem;
+    }
+
+    h2 {
+        font-size: 3rem;
+    }
+
+    .taskContainer {
+        padding: 5px 10px;
+    }
+
+}

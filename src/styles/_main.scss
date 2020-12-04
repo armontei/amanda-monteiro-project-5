@@ -1,8 +1,14 @@
-// this is for a list item in firebase to prevent it from display/deleted since the room would also be deleted if there are no child elements
-.hidden {
-    display: none;
+html {
+    background-color: $fourth;
+    background-image: url(../../src/assets/flowers.png);
 }
 
+body {
+    color: $primary;
+    font-size: 1.8rem;
+    font-style: $main;
+    letter-spacing: 0.9px;
+}
 
 // room and task card styles
 .content {
@@ -17,14 +23,20 @@ h3 {
     letter-spacing: 2px;
     text-shadow: 1px 1px rgba(0,0,0,0.2);
     text-align: center;
+    margin-bottom: 25px;
 }
 
 .taskContainer {
-    padding: 25px 40px;
+    padding: 25px 80px;
     background-color: $fourth;
     border: 3px solid rgba(29, 53, 87, 0.8);;
     border-radius: 10px;
     box-shadow: 3px 1px rgba(0,0,0,0.2);
+}
+
+ul {
+    display: block;
+    margin: 0 auto;
 }
 
 li,
@@ -33,29 +45,35 @@ li,
     align-items: center;
 }
 
-li p {
+span {
+    display: inline-block;
     padding: 0 10px;
 }
 
-// button styles
+// BUTTON styles
 button {
     border-style: none;
     color: white;
     padding: 5px;
     cursor: pointer;
+    letter-spacing: 0.9px;
 }
 
-button:focus,
+button:focus,       
 .taskUpdate:focus,
-input:focus,
 a:focus {
-    outline: 2px dashed $primary;
+    outline: 1px dashed $primary;
 }
 
-// buttons that update whether task is complete
+// buttons that update whether task is complete styles
+input[type=checkbox] {  
+        display: none;
+        transform: scale(3.2);
+        position: absolute;
+    }  
+
 .taskUpdate {
-    cursor: pointer;
-    margin: 5px 0;
+    margin: 10px 0;
 }
 
 .taskUpdate:hover,
@@ -65,8 +83,9 @@ a:focus {
 
 .noBtn,
 .yesBtn {
-    width: 3rem;
+    padding: 5px;
     border-radius: 5px;
+    color: white;
 }
 
 .noBtn:focus,
@@ -94,13 +113,39 @@ a:focus {
     background-color: $fifth;
 }
 
-// button to add tasks
+// completed list item styles
+.yes {
+    color: rgba(29, 53, 87, 0.3);
+    text-decoration: line-through;
+    background-color: transparent;
+
+}
+
+// FORM styles
+input[type=text] {
+    margin: 35px 0 25px 0;
+    caret-color: $fifth;
+    padding: 5px;
+    border-style: none;
+    background-color: transparent;
+    border-bottom: 1px solid $primary;
+    border-radius: 5px 0 0 0;
+    width: 70%;
+}
+
+input[type=text]:focus {
+    background-color: rgba(168, 218, 220, 0.3);
+    outline: none;
+}
+
+// button to add new tasks styles
 .addBtn {
     background-color: transparent;
     border-bottom: 3px solid rgba(29, 53, 87, 0.9);
     border-right: 5px solid rgba(29, 53, 87, 0.9);
     border-radius: 5px 5px 5px 0;
     color: $primary;
+    width: 30%;
 }
 
 .addBtn:hover {
@@ -108,20 +153,20 @@ a:focus {
     color: $fourth;
 }
 
-// completed tasks button
-.yes {
-    color: rgba(29, 53, 87, 0.3);
-    text-decoration: line-through;
-    background-color: transparent;
+// button to add new task suggestions
+.suggestBtn {
+    display: block;
+    margin: 25px auto;
+    background-color: rgba(168, 218, 220, 0.6);
+    border-radius: 5px;
+    padding: 15px;
+    color: $primary;
 }
 
-// form styles
-input {
-    caret-color: $fifth;
-    padding: 5px;
-    border-style: none;
-    background-color: transparent;
-    border-bottom: 1px solid $primary;
+.suggestBtn:hover {
+    background-color: $secondary;
+    color: white;
 }
+
 
 
