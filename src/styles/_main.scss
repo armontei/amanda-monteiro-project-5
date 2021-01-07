@@ -115,7 +115,7 @@ input[type=checkbox] {
 
 // completed list item styles
 .yes {
-    color: rgba(29, 53, 87, 0.3);
+    color: rgba($primary: $main, $alpha: 0.7);
     text-decoration: line-through;
     background-color: transparent;
 

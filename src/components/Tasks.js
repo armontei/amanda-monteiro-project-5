@@ -12,7 +12,6 @@ const Task = ({isChecked, taskName, removeTaskHandler, taskId, labelTaskHandler,
     if (taskId === "hidden" ) {
         return null
     }  return (
-        <ul>
             <li>
                 <div className="taskUpdate" tabindex="0" aria-label="Mark task as complete">
                     <input type="checkbox" id={taskId} tabindex="-1" checked={isChecked === "yes" ? true : false} onChange={() => { labelTaskHandler(taskId, room, isChecked) }} />
@@ -27,7 +26,6 @@ const Task = ({isChecked, taskName, removeTaskHandler, taskId, labelTaskHandler,
                     <FontAwesomeIcon icon={faTrashAlt} />
                 </button>
             </li>
-        </ul>
     )
     }
 

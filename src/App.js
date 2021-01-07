@@ -177,17 +177,18 @@ class App extends Component {
           {this.state.rooms.map((room) => {
             return (
               <Rooms roomName={room.name}>
+                <ul>
+                  {room.tasks.map(task => {
 
-                {room.tasks.map(task => {
+                    return <Task taskName={task.taskName} removeTaskHandler={this.removeTask} labelTaskHandler={this.completeTask} taskId={task.id} isChecked={task.isComplete} room={room.name} />
 
-                  return <Task taskName={task.taskName} removeTaskHandler={this.removeTask} labelTaskHandler={this.completeTask} taskId={task.id} isChecked={task.isComplete} room={room.name} />
+                  })}
 
-                })}
+                  {/* ADD TASK SECTION */}
+                  <Form inputChangeHandler={this.handleInput} room={room.name} newTaskHandler={this.handleAdd} />
 
-                {/* ADD TASK SECTION */}
-                <Form inputChangeHandler={this.handleInput} room={room.name} newTaskHandler={this.handleAdd} />
-
-                <Suggestion room={room.name} suggestionHandler={this.newSuggestion} />
+                  <Suggestion room={room.name} suggestionHandler={this.newSuggestion} />
+                </ul>
 
               </Rooms> 
               
