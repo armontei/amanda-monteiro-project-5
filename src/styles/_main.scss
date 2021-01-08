@@ -5,8 +5,8 @@ html {
 
 body {
     color: $primary;
-    font-size: 1.8rem;
-    font-style: $main;
+    font-size: 1.7rem;
+    font-family: $main;
     letter-spacing: 0.9px;
 }
 
@@ -52,6 +52,7 @@ span {
 
 // BUTTON styles
 button {
+    font-family: $main;
     border-style: none;
     color: white;
     padding: 5px;
@@ -118,7 +119,6 @@ input[type=checkbox] {
     color: rgba($color: $primary, $alpha: 0.7);
     text-decoration: line-through;
     background-color: transparent;
-
 }
 
 // FORM styles

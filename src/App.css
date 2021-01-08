@@ -308,8 +308,8 @@ html {
 
 body {
   color: #1d3557;
-  font-size: 1.8rem;
-  font-style: "Poppins", sans-serif;
+  font-size: 1.7rem;
+  font-family: "Poppins", sans-serif;
   letter-spacing: 0.9px;
 }
 
@@ -360,6 +360,7 @@ span {
 }
 
 button {
+  font-family: "Poppins", sans-serif;
   border-style: none;
   color: white;
   padding: 5px;
