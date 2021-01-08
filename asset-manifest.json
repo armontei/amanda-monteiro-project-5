@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/amanda-monteiro-project-5/static/css/main.d399a4bb.chunk.css",
-    "main.js": "/amanda-monteiro-project-5/static/js/main.463dab20.chunk.js",
-    "main.js.map": "/amanda-monteiro-project-5/static/js/main.463dab20.chunk.js.map",
+    "main.css": "/amanda-monteiro-project-5/static/css/main.5e00e513.chunk.css",
+    "main.js": "/amanda-monteiro-project-5/static/js/main.8eb115c5.chunk.js",
+    "main.js.map": "/amanda-monteiro-project-5/static/js/main.8eb115c5.chunk.js.map",
     "runtime-main.js": "/amanda-monteiro-project-5/static/js/runtime-main.0c314e25.js",
     "runtime-main.js.map": "/amanda-monteiro-project-5/static/js/runtime-main.0c314e25.js.map",
     "static/js/2.681bc97e.chunk.js": "/amanda-monteiro-project-5/static/js/2.681bc97e.chunk.js",
@@ -10,14 +10,14 @@
     "static/js/3.86c67682.chunk.js": "/amanda-monteiro-project-5/static/js/3.86c67682.chunk.js",
     "static/js/3.86c67682.chunk.js.map": "/amanda-monteiro-project-5/static/js/3.86c67682.chunk.js.map",
     "index.html": "/amanda-monteiro-project-5/index.html",
-    "static/css/main.d399a4bb.chunk.css.map": "/amanda-monteiro-project-5/static/css/main.d399a4bb.chunk.css.map",
+    "static/css/main.5e00e513.chunk.css.map": "/amanda-monteiro-project-5/static/css/main.5e00e513.chunk.css.map",
     "static/js/2.681bc97e.chunk.js.LICENSE.txt": "/amanda-monteiro-project-5/static/js/2.681bc97e.chunk.js.LICENSE.txt",
     "static/media/App.scss": "/amanda-monteiro-project-5/static/media/header.bd238ec6.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.0c314e25.js",
     "static/js/2.681bc97e.chunk.js",
-    "static/css/main.d399a4bb.chunk.css",
-    "static/js/main.463dab20.chunk.js"
+    "static/css/main.5e00e513.chunk.css",
+    "static/js/main.8eb115c5.chunk.js"
   ]
 }
